@@ -1,8 +1,8 @@
 # Repository to test different forms
 This repository provides simple HTTP server that handles 4 different endpoints for different type of forms.
 
-## Setup
-`POST` requests only allowed with `Content-Type: application/json`.
+## Requirements
+`node` >= 16.0.0, `npm`
 
 ## Usage
 ```
@@ -12,6 +12,9 @@ npm i
 # run server on localhost:3000
 npm run server
 ```
+
+## Server Specifications
+`POST` requests only allowed with `Content-Type: application/json`.
 
 ## Errors
 ### 400 / Bad Request
@@ -78,7 +81,7 @@ or
 
 ## Endpoints
 ### GET `/search`
-#### Query schema
+#### Query params schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
 | `query` | `zod.string` | y | `/^([a-z0-9]+( |)){2,}$/i` |
