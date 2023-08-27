@@ -31,8 +31,8 @@ const server = http.createServer((req, res) => {
     switch (url.pathname) {
         case '/search':
             return search(req, res, url);
-        case '/sign-in':
-            return postHandler(req, res, url, signIn);
+        case 'sign-up':
+            return postHandler(req, res, url, signUp);
         case '/pay':
             return postHandler(req, res, url, pay);
         case '/deliver':
@@ -131,7 +131,7 @@ const postHandler: PostHandler = (req, res, url, callback) => {
     });
 }
 
-const signIn: PostCallback = (data, res) => {
+const signUp: PostCallback = (data, res) => {
     try {
         const schema = z.object({
             email: z.string()

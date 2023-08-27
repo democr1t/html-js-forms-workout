@@ -93,7 +93,7 @@ Payload:
 }
 ```
 
-### POST `/sign-in`
+### POST `/sign-up`
 #### Body schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |

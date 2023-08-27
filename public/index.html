@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forms workout</title>
+        <style>
+            body {
+                max-width: 42rem;
+                margin: 0 auto;
+                text-align: left;
+            }
+
+            .form-section {
+                padding: 0.5rem 1.5rem 1rem 0.5rem;
+                border-radius: 4px;
+                border: 1px solid black;
+            }
+
+            .form-section + .form-section {
+                margin-top: 1rem;
+            }
+        </style>
+
+        <!-- Import your dependencies here -->
+    </head>
+    <body>
+        <main>
+            <h1>Forms workout</h1>
+            <p>
+                Your goal is to write 4 forms, each for different endpoint, that are handling form submissions with JavaScript and fetch.
+            </p>
+
+            <h2>Requirements</h2>
+            <p>
+                <ul>
+                    <li>
+                        Use semantic HTML (<code>input type="number"</code> for numbers, etc.);
+                    </li>
+                    <li>
+                        Use client-side form validation (at least form attributes like <code>pattern</code>, <code>required</code>);
+                    </li>
+                    <li>
+                        Use special form attributes (<code>enterkeyhint</code>, <code>autocomplete</code> etc.);
+                    </li>
+                    <li>
+                        Have styles/distinguish for valid/invalid/required states, import separate <code>.css</code> file;
+                    </li>
+                    <li>
+                        Send form requests with <code>fetch</code>, import separate <code>.js</code> file;
+                    </li>
+                    <li>
+                        Display errors (if any) for each input next to it;
+                    </li>
+                    <li>
+                        Display result for successfull request under form.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                Here is a code snippet for sending <code>POST</code> reques via <code>form</code>'s <code>submit</code> event:
+                <br/>
+                <pre>const form = document.getElementById('search');
+form.addEventListener('submit', (evt) => {
+    const data = new FormData(evt.target);
+    const obj = {};
+    for (const key of data.keys()) {
+        obj[key] = data.get(key);
+    }
+    const body = JSON.stringify(obj);
+
+    fetch(form.action, {
+        method: form.method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body
+    });
+});</pre>
+            </p>
+
+            <h2>Forms</h2>
+            <p>
+                Implement following forms:
+                <ol>
+                    <li>Search form;</li>
+                    <li>Sign-up form;</li>
+                    <li>Payment form;</li>
+                    <li>Delivery form.</li>
+                </ol>
+                Base path for server is <code>http://localhost:3000/</code>.
+                <br/>
+                You can read backend specification in <code>README.md</code>.
+            </p>
+
+            <h2>Resources</h3>
+            <ul>
+                <li>
+                    <a href="https://web.dev/learn/forms/" target="_blank">web.dev on forms</a>;
+                </li>
+                <li>
+                    MDN on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">fetch</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank">input</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">select</a>.
+                </li>
+            </ul>
+
+            <section class="form-section">
+                <h3>Search</h3>
+                <form>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Sign up</h3>
+                <form>
+                    <button type="submit">Sign up</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Delivery</h3>
+                <form>
+                    <button type="submit">Request delivery</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Pay</h3>
+                <form>
+                    <button type="submit">Pay</button>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>
