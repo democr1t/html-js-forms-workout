@@ -84,7 +84,7 @@ or
 #### Query params schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
-| `query` | `zod.string` | y | /^([a-z0-9]+(| )){2,}$/i |
+| `query` | `zod.string` | y | `/^([a-z0-9]+(\| )){2,}$/i` |
 
 #### Success
 Status: `200`
@@ -101,7 +101,7 @@ Payload:
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
 | `email` | `string` | y | `zod.email` |
-| `password` | `string` | y | /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/i |
+| `password` | `string` | y | `/^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/i` |
 | `confirm` | `string` | y | equals to `password` |
 
 #### Success
@@ -120,8 +120,8 @@ Payload:
 #### Body schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
-| `name` | `string` | y | /^([a-z]+(| ))+$/i |
-| `number` | `string` | y | /^([\d]{4}(| )){4}$/ |
+| `name` | `string` | y | `/^([a-z]+(\| ))+$/i` |
+| `number` | `string` | y | `/^([\d]{4}(\| )){4}$/` |
 | `expiry` | `zod.date` | y | at least *tomorrow* |
 | `code` | `number` | y | `100 <= x <= 999` |
 
@@ -141,11 +141,11 @@ Payload:
 #### Body schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
-| `name` | `string` | y | /^([a-z]+(| ))+$/i |
-| `address` | `string` | y | /^[a-z0-9\,\.]+$/ |
-| `zip` | `string` | y | /[\d]{,6}/ |
-| `city` | `string` | y | /^[a-z \-\'\.]+$/i |
-| `country` | `string` | y | /^[a-z \-\'\.]+$/i |
+| `name` | `string` | y | `/^([a-z]+(\| ))+$/i` |
+| `address` | `string` | y | `/^[a-z0-9\,\.]+$/` |
+| `zip` | `string` | y | `/[\d]{,6}/` |
+| `city` | `string` | y | `/^[a-z \-\'\.]+$/i` |
+| `country` | `string` | y | `/^[a-z \-\'\.]+$/i` |
 
 #### Success
 Status: `200`
