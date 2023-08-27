@@ -6,8 +6,10 @@ const host = 'localhost';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-    if (req?.headers["content-type"] !== 'application/json') {
-        return badRequest(res, [`Content type '${req.headers['content-type']}' is not supported.`]);
+    if (req?.method === 'POST') {
+        if (req?.headers["content-type"] !== 'application/json') {
+            return badRequest(res, [`Content type '${req.headers['content-type']}' is not supported.`]);
+        }
     }
 
     res.setHeader('Content-Type', 'application/json');
@@ -62,7 +64,7 @@ const search: RequestHandler = (req, res, url) => {
     const { searchParams } = url;
     const schema = z.string()
         .trim()
-        .regex(/^([a-z0-9]+( |))+$/i, "Query must contain only letters, numbers and spaces.")
+        .regex(/^([a-z0-9]+( |)){2,}$/i, "Query must contain only letters, numbers and spaces.")
         .min(2, "Query must be at least 2 characters long.");
 
     try {
@@ -116,6 +118,9 @@ const postHandler: PostHandler = (req, res, url, callback) => {
                 return callback(JSON.parse(data), res);
             }
             catch (error: any) {
+                if (error instanceof SyntaxError) {
+                    return badRequest(res, [ error?.message ?? '' ]);
+                }
                 return serverError(res, error.message);
             }
         }
@@ -218,7 +223,7 @@ const deliver: PostCallback = (data, res) => {
             name: z.string()
                 .trim()
                 .regex(/^([a-z]+( |))+$/i, "Name must contain only letters and spaces."),
-            address: z.coerce.string()
+            address: z.string()
                 .trim()
                 .regex(/^[a-z0-9\,\.]+$/, "Address must contain only letters, digits, commas and periods."),
             zip: z.coerce.string()
