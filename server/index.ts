@@ -6,14 +6,6 @@ const host = 'localhost';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-    if (req?.method === 'POST') {
-        if (req?.headers["content-type"] !== 'application/json') {
-            return badRequest(res, [`Content type '${req.headers['content-type']}' is not supported.`]);
-        }
-    }
-
-    res.setHeader('Content-Type', 'application/json');
-
     let url: URL;
     const reqUrl = req?.url ?? null;
 
@@ -26,6 +18,23 @@ const server = http.createServer((req, res) => {
     }
     else {
         url = new URL(reqUrl);
+    }
+
+    // cors
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,HEAD');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    res.setHeader('Content-Type', 'application/json');
+
+    if (req?.method === 'HEAD' || req?.method === 'OPTIONS') {
+        return preflight(req, res, url);
+    }
+
+    if (req?.method === 'POST') {
+        if (req?.headers["content-type"] !== 'application/json') {
+            return badRequest(res, [`Content type '${req.headers['content-type']}' is not supported.`]);
+        }
     }
 
     switch (url.pathname) {
@@ -52,13 +61,14 @@ type RequestHandler = (req: http.IncomingMessage, res: http.ServerResponse<http.
 type PostCallback = (data: Record<string, any>, res: http.ServerResponse<http.IncomingMessage> & { req: http.IncomingMessage }) => void;
 type PostHandler = (req: http.IncomingMessage, res: http.ServerResponse<http.IncomingMessage> & { req: http.IncomingMessage }, url: URL, callback: PostCallback) => void;
 
+const preflight: RequestHandler = (req, res, url) => {
+    res.statusCode = 204;
+    res.end();
+}
+
 const search: RequestHandler = (req, res, url) => {
     if (req?.method !== 'GET') {
         return methodNotAllowed(res, req?.method ?? '???', url.pathname);
-    }
-
-    if (req?.headers["content-type"] !== 'application/json') {
-        return badRequest(res, [`Content type '${req.headers['content-type']}' is not supported.`]);
     }
 
     const { searchParams } = url;
@@ -202,7 +212,6 @@ const pay: PostCallback = (data, res) => {
 
         if (error instanceof ZodError) {
             const flatError = error.flatten();
-            console.log(flatError);
             const errors = [...flatError.formErrors, ...Object.entries(flatError.fieldErrors)];
             return badRequest(res, errors);
         }
@@ -246,7 +255,6 @@ const deliver: PostCallback = (data, res) => {
 
         if (error instanceof ZodError) {
             const flatError = error.flatten();
-            console.log(flatError);
             const errors = [...flatError.formErrors, ...Object.entries(flatError.fieldErrors)];
             return badRequest(res, errors);
         }
