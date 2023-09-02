@@ -84,7 +84,7 @@ or
 #### Query params schema
 | Field | Type | Required | Format |
 | ----- | ---- | -------- | ------ |
-| `query` | `zod.string` | y | `/^([a-z0-9]+(\| )){2,}$/i` |
+| `query` | `string` | y | `/^([a-z0-9]+(\| )){2,}$/i` |
 
 #### Success
 Status: `200`
