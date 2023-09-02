@@ -11,7 +11,7 @@ form.addEventListener('submit', (evt) =>
     }
 
     fetch(form.action +"?" + (new URLSearchParams(obj)).toString(), {
-        method: form.method.toUpperCase(), mode:"no-cors",
+        method: form.method.toUpperCase(),
         headers: {
             'Content-Type': 'application/json'
         },
