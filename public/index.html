@@ -19,7 +19,7 @@
                 margin-top: 1rem;
             }
         </style>
-
+       <script defer src="index.js" >   </script>
         <!-- Import your dependencies here -->
     </head>
     <body>
@@ -103,12 +103,12 @@ form.addEventListener('submit', (evt) => {
 
             <section class="form-section">
                 <h3>Search</h3>
-                <form method="post" action="http://localhost:3000/search" enctype="application/json">
+                <form method="get" id="search" action="http://localhost:3000/search" enctype="application/json">
                     <fieldset>
                         <legend>Enter seach request</legend>
                         <label>
                             Request:
-                            <input type="text">
+                            <input type="text" name="query">
                         </label>
                     </fieldset>
                     <button type="submit">Search</button>
