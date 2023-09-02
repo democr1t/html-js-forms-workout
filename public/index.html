@@ -103,7 +103,14 @@ form.addEventListener('submit', (evt) => {
 
             <section class="form-section">
                 <h3>Search</h3>
-                <form>
+                <form method="post" action="http://localhost:3000/search" enctype="application/json">
+                    <fieldset>
+                        <legend>Enter seach request</legend>
+                        <label>
+                            Request:
+                            <input type="text">
+                        </label>
+                    </fieldset>
                     <button type="submit">Search</button>
                 </form>
             </section>
