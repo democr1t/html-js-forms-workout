@@ -18,6 +18,14 @@
             .form-section + .form-section {
                 margin-top: 1rem;
             }
+
+            .sign-up-fieldset{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                
+            }
         </style>
        <script defer src="index.js" >   </script>
         <!-- Import your dependencies here -->
@@ -108,7 +116,7 @@ form.addEventListener('submit', (evt) => {
                         <legend>Enter seach request</legend>
                         <label>
                             Request:
-                            <input type="text" name="query">
+                            <input type="text" name="query"  contenteditable enterkeyhint="search">
                         </label>
                     </fieldset>
                     <button type="submit">Search</button>
@@ -118,6 +126,17 @@ form.addEventListener('submit', (evt) => {
             <section class="form-section">
                 <h3>Sign up</h3>
                 <form>
+                    <fieldset class="sign-up-fieldset">
+                        <label>
+                            Email: <input type="email" name="email" id="email">
+                        </label>
+                        <label>
+                            Password: <input type="password" name="password" id="password">
+                        </label>
+                        <label>
+                            Confirm password: <input type="password" name="confirm-password" id="confirm-password">
+                        </label>
+                    </fieldset>
                     <button type="submit">Sign up</button>
                 </form>
             </section>

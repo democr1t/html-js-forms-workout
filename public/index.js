@@ -1,24 +1,34 @@
-
-const form = document.getElementById('search');
-form.addEventListener('submit', (evt) => 
-{
-    evt.preventDefault()
-    const data = new FormData(form);
-    const obj = {};
-
-    for (const key of data.keys()) {     
-        obj[key] = data.get(key);
-    }
-
-    fetch(form.action +"?" + (new URLSearchParams(obj)).toString(), {
-        method: form.method.toUpperCase(),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        
-    });
-});
 alert("works")
+ValidateSearch()
+
+function ValidateSearch()
+{
+    const form = document.getElementById('search');
+    form.addEventListener('submit', (evt) => 
+    {
+        const data = new FormData(form);
+        const obj = {};
+        const inlineStyles = data.styles
+        inlineStyles.setAttribute('border', 'color:red; border: 1px solid red;') 
+        //evt.preventDefault()
+        
+        for (const key of data.keys()) {     
+            obj[key] = data.get(key);
+        }
+
+        fetch(form.action +"?" + (new URLSearchParams(obj)).toString(), {
+            method: form.method.toUpperCase(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            
+        });
+    });
+}
+
+
+
+
     // const body = JSON.stringify(obj);
     // console.log(evt.target)
     // console.log("OBJ: " + obj)
