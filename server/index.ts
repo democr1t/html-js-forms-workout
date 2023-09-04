@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
     switch (url.pathname) {
         case '/search':
             return search(req, res, url);
-        case 'sign-up':
+        case '/sign-up':
             return postHandler(req, res, url, signUp);
         case '/pay':
             return postHandler(req, res, url, pay);
