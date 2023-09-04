@@ -26,6 +26,9 @@
                 justify-content: flex-start;
                 
             }
+            input:invalid {
+            border: red solid 3px;
+            }
         </style>
        <script defer src="index.js" >   </script>
         <!-- Import your dependencies here -->
@@ -116,7 +119,7 @@ form.addEventListener('submit', (evt) => {
                         <legend>Enter seach request</legend>
                         <label>
                             Request:
-                            <input type="text" name="query"  contenteditable enterkeyhint="search">
+                            <input type="text" required name="query" pattern="^([a-z0-9]+(| )){2,}$" contenteditable enterkeyhint="search" title="Query must contain only letters, numbers and spaces and must be at least 2 characters long.">
                         </label>
                     </fieldset>
                     <button type="submit">Search</button>
@@ -125,7 +128,7 @@ form.addEventListener('submit', (evt) => {
 
             <section class="form-section">
                 <h3>Sign up</h3>
-                <form>
+                <form method="POST" action="http://localhost:3000/sign-up" id="sign-up">
                     <fieldset class="sign-up-fieldset">
                         <label>
                             Email: <input type="email" name="email" id="email">
