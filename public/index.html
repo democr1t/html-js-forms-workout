@@ -26,6 +26,21 @@
                 justify-content: flex-start;
                 
             }
+
+            .delivery-fieldset{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                
+            }
+            .pay-fieldset{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                
+            }
             input:invalid {
             border: red solid 3px;
             }
@@ -102,7 +117,7 @@ form.addEventListener('submit', (evt) => {
                 You can read backend specification in <code>README.md</code>.
             </p>
 
-            <h2>Resources</h3>
+            <h2>Resources</h2>
             <ul>
                 <li>
                     <a href="https://web.dev/learn/forms/" target="_blank">web.dev on forms</a>;
@@ -140,20 +155,52 @@ form.addEventListener('submit', (evt) => {
                             Confirm password: <input type="password" name="confirm-password" id="confirm-password">
                         </label>
                     </fieldset>
+                    <p class="p-error">TEST ERRORS</p>
                     <button type="submit">Sign up</button>
                 </form>
             </section>
 
             <section class="form-section">
                 <h3>Delivery</h3>
-                <form>
+                <form method="POST" action="http://localhost:3000/deliver" id="delivery">
+                    <fieldset class="delivery-fieldset">
+                        <label>
+                            Name: <input type="text" name="name" id="name">
+                        </label>
+                        <label>
+                            Adress: <input type="text" name="adress" id="adress">
+                        </label>
+                        <label>
+                            Zip: <input type="text" name="zip" id="zip">
+                        </label>
+                        <label>
+                            City: <input type="text" name="city" id="city">
+                        </label>
+                        <label>
+                            Country: <input type="text" name="country" id="country">
+                        </label>
+                    </fieldset>
                     <button type="submit">Request delivery</button>
                 </form>
             </section>
 
             <section class="form-section">
                 <h3>Pay</h3>
-                <form>
+                <form method="POST" action="http://localhost:3000/pay" id="pay">
+                    <fieldset class="pay-fieldset">
+                        <label>
+                            Name: <input type="text" name="name" id="name">
+                        </label>
+                        <label>
+                            Number: <input type="text" name="number" id="number">
+                        </label>
+                        <label>
+                            Expiry: <input type="date" name="expiry" id="expiry">
+                        </label>
+                        <label>
+                            Code: <input type="number" name="code" id="code">
+                        </label>
+                    </fieldset>
                     <button type="submit">Pay</button>
                 </form>
             </section>

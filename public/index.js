@@ -1,6 +1,5 @@
-alert("works")
 ValidateSearch()
-ValidateSignUp()
+ValidateOtherForms()
 
 function ValidateSearch()
 {
@@ -27,16 +26,25 @@ function ValidateSearch()
     });
 }
 
-function ValidateSignUp()
+function ValidateOtherForms()
 {
-    const form = document.getElementById('sign-up')
+    const aIDsToValidate = ['sign-up', 'delivery', 'pay']
 
-    form.addEventListener('submit', (evt) =>
-    {        
-        evt.preventDefault()
-        SendAsJson(form)
-    })
+    for (let i = 0; i < aIDsToValidate.length; i++)
+     {
+       
+        const form = document.getElementById(aIDsToValidate[i])
+        for (const child of form.children) {
+            console.log(child.tagName);
+          }
+        form.addEventListener('submit', (evt) =>
+        {        
+            evt.preventDefault()
+            SendAsJson(form)
+        })        
+    }
 }
+
 
 function SendAsJson(form)
 {
@@ -49,34 +57,34 @@ function SendAsJson(form)
 
     const body = JSON.stringify(obj);
 
-    fetch(form.action, {
-        method: form.method,
-        headers: {
+    fetch(form.action, 
+        {
+            method: form.method,
+            headers: {
             'Content-Type': 'application/json'
         },
         body
-    }).then(res => res.json())
+        }).then(res => res.json())
     .then((data) => {
-    // обработка данных
     const error = data.errors;
     AppendError(form,error);
     })
     .catch((error) => console.log('Ошибка', error));
-    // .then(response => AppendError(form, response.json().data.errors))
 }
 
-function AppendError(elementToAppend, error){
-    const p = document.createElement('p')
-    p.textContent = "Error: "  + error
-    elementToAppend.appendChild(p)
+function AppendError(elementToAppend, error)
+{   
+    const aChildren = elementToAppend.children
+
+    if(aChildren.includes("P"))
+    {
+        alert("IT CONTAINS")
+    }
+    else
+    {
+        const p = document.createElement('p')
+        p.textContent = "Error: "  + error
+        p.className = "error-p"
+        elementToAppend.appendChild(p)
+    }  
 }
-
-
-
-    // const body = JSON.stringify(obj);
-    // console.log(evt.target)
-    // console.log("OBJ: " + obj)
-    // console.log("form: " + form)
-    // console.log("data: " + data)
-    // console.log("data-keys: " + data.keys)
-    // console.log("obj[key]: " + obj[key])
