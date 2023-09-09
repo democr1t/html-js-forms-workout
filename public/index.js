@@ -32,8 +32,7 @@ function ValidateOtherForms()
     const aIDsToValidate = ['sign-up', 'delivery', 'pay']
 
     for (let i = 0; i < aIDsToValidate.length; i++)
-     {
-       
+    {       
         const form = document.getElementById(aIDsToValidate[i])
         
         form.addEventListener('submit', (evt) =>
@@ -51,19 +50,17 @@ function SendAsJson(form)
     const data = new FormData(form);
     const obj = {}
 
-    for (const key of data.keys()) {
-        obj[key] = data.get(key);
-    }
-
+    for (const key of data.keys()) obj[key] = data.get(key);
+    
     const body = JSON.stringify(obj);
 
     fetch(form.action, 
         {
             method: form.method,
             headers: {
-            'Content-Type': 'application/json'
-        },
-        body
+                'Content-Type': 'application/json'
+            },
+            body
         }).then(res => res.json())
     .then((data) => {
     AppendResponse(form,data);
