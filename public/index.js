@@ -35,12 +35,11 @@ function ValidateOtherForms()
      {
        
         const form = document.getElementById(aIDsToValidate[i])
-        for (const child of form.children) {
-            console.log(child.tagName);
-          }
+        
         form.addEventListener('submit', (evt) =>
-        {        
+        {    
             evt.preventDefault()
+            ClearDataErrors(form);              
             SendAsJson(form)
         })        
     }
@@ -67,25 +66,50 @@ function SendAsJson(form)
         body
         }).then(res => res.json())
     .then((data) => {
-    const error = data.errors;
-    AppendError(form,error);
+    AppendResponse(form,data);
     })
     .catch((error) => console.log('Ошибка', error));
 }
 
-function AppendError(elementToAppend, error)
+function AppendResponse(form, responseData)
 {   
-    const aChildren = elementToAppend.children
-
-    if(aChildren.includes("P"))
+    if(responseData.data == null && responseData.errors == null)
     {
-        alert("IT CONTAINS")
+        return;
     }
-    else
+
+    
+
+    if(responseData.errors != null)
+    {           
+        responseData.errors.forEach((element) => {
+            if(form.elements[element[0]])
+            {
+               const pError = form.querySelector(`[data-errors="${element[0]}"]`)
+               pError.style.display = "block";
+               pError.textContent = element[1]
+            } 
+        })
+        
+    }
+    else if(responseData.data != null)
     {
-        const p = document.createElement('p')
-        p.textContent = "Error: "  + error
-        p.className = "error-p"
-        elementToAppend.appendChild(p)
-    }  
+        const p = form.querySelector('[data-response]')
+        p.style.display = "block";
+        p.textContent = "Success request: "  + JSON.stringify(responseData.data)
+        p.className = "response-p"       
+    }      
 }
+
+function ClearDataErrors(form)
+{
+    const pErrors = form.querySelectorAll('[data-errors]')
+    pErrors.forEach((element) => {
+        element.style.display = "none";
+        element.textContent = "";
+    })
+    const pResponse = form.querySelector('[data-response]')
+    pResponse.textContent = "";
+    pResponse.style.display = "none";
+}
+
