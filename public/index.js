@@ -9,6 +9,7 @@ function ValidateSearch()
         const data = new FormData(form);
         const obj = {};
         const inlineStyles = data.styles
+        
         inlineStyles.setAttribute('border', 'color:red; border: 1px solid red;') 
         evt.preventDefault()
         
